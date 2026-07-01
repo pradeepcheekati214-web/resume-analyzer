@@ -1,0 +1,36 @@
+Senior Software Engineer — Backend Focus
+TechCo | San Francisco, CA (Hybrid)
+
+About the Role:
+We are looking for a Senior Software Engineer to join our backend team. You will design, build, and
+maintain scalable backend services and APIs that power our SaaS platform serving 100K+ customers.
+
+Responsibilities:
+• Design and implement RESTful APIs and microservices using Python (FastAPI or Django).
+• Work with PostgreSQL, Redis, and DynamoDB to model and optimise data access patterns.
+• Build and maintain CI/CD pipelines using GitHub Actions and Docker.
+• Collaborate with frontend engineers, product managers, and data scientists.
+• Participate in architecture reviews, code reviews, and sprint planning.
+• Monitor system health using CloudWatch, Datadog, and structured logging.
+• Mentor junior team members and contribute to engineering best practices.
+
+Requirements:
+• 5+ years of professional software engineering experience.
+• Strong proficiency in Python (FastAPI, Django, or Flask).
+• Experience with AWS services: Lambda, S3, RDS/DynamoDB, CloudWatch, API Gateway.
+• Solid understanding of SQL and database optimisation.
+• Familiarity with Docker, Kubernetes, and infrastructure-as-code (Terraform or CDK).
+• Experience with CI/CD pipelines (GitHub Actions, Jenkins, or CircleCI).
+• Excellent communication and collaboration skills in an Agile environment.
+
+Nice to Have:
+• Experience with Kafka or other message queue systems.
+• Contributions to open-source projects.
+• AWS certifications.
+• Experience with TypeScript and React for occasional full-stack work.
+
+We Offer:
+• Competitive salary ($150K–$190K) + equity
+• Fully remote-friendly with quarterly in-person meet-ups
+• Comprehensive health, dental, vision benefits
+• $2,000/year learning & development budget

@@ -1,0 +1,82 @@
+version: "3.9"
+
+services:
+  # ── Backend API ──────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: resume-analyzer-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: sqlite:///./resume_analyzer.db
+      APP_ENV: development
+      DEBUG: "true"
+      ALLOWED_ORIGINS: "http://localhost:5173,http://localhost:3000"
+    volumes:
+      - ./backend/app:/app/app          # hot reload in dev
+      - backend-data:/app/data          # persistent DB file
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # ── Frontend ─────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: resume-analyzer-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      VITE_API_URL: http://localhost:8000
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # ── Local DynamoDB (optional) ────────────────────────────────────────────
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    ports:
+      - "8001:8000"
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory"]
+    networks:
+      - app-network
+    profiles:
+      - aws-local    # only start with: docker-compose --profile aws-local up
+
+  # ── DynamoDB Admin UI ────────────────────────────────────────────────────
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: dynamodb-admin
+    ports:
+      - "8002:8001"
+    environment:
+      DYNAMO_ENDPOINT: http://dynamodb-local:8000
+    depends_on:
+      - dynamodb-local
+    networks:
+      - app-network
+    profiles:
+      - aws-local
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  backend-data:
