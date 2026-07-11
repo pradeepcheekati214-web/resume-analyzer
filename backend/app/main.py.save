@@ -55,16 +55,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    if settings.APP_ENV == "production":
-        app.add_middleware(
-            TrustedHostMiddleware,
-            allowed_hosts=[
-                "*.amazonaws.com",
-                "localhost",
-                "3.92.99.52",
-            ],
-        )
-
+    
     # ── Exception handlers ──────────────────────────────────────────────────
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(request: Request, exc: RequestValidationError):

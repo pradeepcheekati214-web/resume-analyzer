@@ -10,6 +10,7 @@ passlib[bcrypt]==1.7.4
 # Database
 sqlalchemy==2.0.27
 alembic==1.13.1
+psycopg2-binary==2.9.9
 
 # Resume parsing
 pdfplumber==0.10.3

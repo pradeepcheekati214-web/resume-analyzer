@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
+
     # Database
     DATABASE_URL: str = "sqlite:///./resume_analyzer.db"
 
