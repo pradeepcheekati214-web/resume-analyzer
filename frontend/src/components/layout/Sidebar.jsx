@@ -1,17 +1,18 @@
 import { NavLink, Link } from 'react-router-dom';
-import { FiHome, FiUser, FiFileText, FiX, FiUpload, FiTarget, FiCpu } from 'react-icons/fi';
+import { FiHome, FiUser, FiFileText, FiX, FiUpload, FiTarget, FiCpu, FiMessageCircle } from 'react-icons/fi';
 import { HiOutlineChartBar, HiOutlineSparkles } from 'react-icons/hi';
 import clsx from 'clsx';
 
 const NAV_ITEMS = [
-  { to: '/home',                icon: FiHome,              label: 'Home' },
-  { to: '/dashboard',           icon: HiOutlineChartBar,   label: 'Dashboard' },
+  { to: '/home',                icon: FiHome,            label: 'Home' },
+  { to: '/dashboard',           icon: HiOutlineChartBar, label: 'Dashboard' },
   { divider: true, label: 'AI Features' },
-  { to: '/job-match',           icon: FiTarget,            label: 'Job Match' },
-  { to: '/interview/questions', icon: FiCpu,               label: 'Interview Prep' },
-  { to: '/interview/history',   icon: HiOutlineChartBar,   label: 'Interview History' },
+  { to: '/chatbot',             icon: FiMessageCircle,   label: 'AI Chatbot' },
+  { to: '/job-match',           icon: FiTarget,          label: 'Job Match' },
+  { to: '/interview/questions', icon: FiCpu,             label: 'Interview Prep' },
+  { to: '/interview/history',   icon: HiOutlineChartBar, label: 'Interview History' },
   { divider: true, label: 'Account' },
-  { to: '/profile',             icon: FiUser,              label: 'Profile' },
+  { to: '/profile',             icon: FiUser,            label: 'Profile' },
 ];
 
 function SidebarContent({ onNavClick }) {

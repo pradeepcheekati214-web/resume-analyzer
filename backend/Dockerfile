@@ -33,9 +33,6 @@ RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 COPY --from=builder /wheels /wheels
 RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
 
-# Download spaCy model
-RUN python -m spacy download en_core_web_sm
-
 # Copy application source
 COPY app/ ./app/
 

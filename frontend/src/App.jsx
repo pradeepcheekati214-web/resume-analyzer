@@ -25,6 +25,7 @@ import InterviewQuestionsPage  from '@/pages/InterviewQuestionsPage';
 import MockInterviewPage       from '@/pages/MockInterviewPage';
 import InterviewResultPage     from '@/pages/InterviewResultPage';
 import InterviewHistoryPage    from '@/pages/InterviewHistoryPage';
+import ChatbotPage             from '@/pages/ChatbotPage';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
                 <Route path="/interview/:interviewId"     element={<MockInterviewPage />} />
                 <Route path="/interview/:interviewId/result" element={<InterviewResultPage />} />
                 <Route path="/interview/history"          element={<InterviewHistoryPage />} />
+                <Route path="/chatbot"                    element={<ChatbotPage />} />
               </Route>
             </Route>
 

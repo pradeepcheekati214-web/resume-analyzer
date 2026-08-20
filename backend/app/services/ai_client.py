@@ -124,6 +124,9 @@ def _call_mock(system_prompt: str, user_prompt: str) -> LLMResponse:
         content = json.dumps(_mock_evaluation_payload())
     elif "overall_score" in prompt_lower and "strengths" in prompt_lower:
         content = json.dumps(_mock_result_payload())
+    elif "resume coach" in prompt_lower or "candidate's resume" in prompt_lower or "ats score" in prompt_lower:
+        # Chat mode — return plain text, not JSON
+        content = _mock_chat_response(user_prompt)
     else:
         content = json.dumps({"result": "mock response"})
 
@@ -569,6 +572,102 @@ def _mock_questions_payload_dynamic(prompt: str = "") -> dict:
     result["total"] = total
     return result
 
+
+
+def _mock_chat_response(prompt: str) -> str:
+    """Return context-aware plain text chat responses for mock mode."""
+    p = prompt.lower()
+
+    if any(kw in p for kw in ["improve", "better", "enhance"]):
+        return (
+            "Here are my top suggestions to improve your resume:\n\n"
+            "• **Quantify achievements** — Add numbers to every bullet (e.g., 'Reduced API latency by 40%')\n"
+            "• **Strong action verbs** — Start each bullet with: Built, Engineered, Delivered, Led\n"
+            "• **Tailor per role** — Mirror keywords from each job description\n"
+            "• **Professional summary** — Add a 2-3 sentence summary highlighting your value\n"
+            "• **Contact info** — Ensure email, phone, LinkedIn, and GitHub are visible at the top"
+        )
+    if any(kw in p for kw in ["missing skill", "skill gap", "what skill"]):
+        return (
+            "Based on your resume, consider adding these skills:\n\n"
+            "• **Kubernetes** — Increasingly required for backend/devops roles\n"
+            "• **TypeScript** — Standard in modern React/Node.js projects\n"
+            "• **System Design** — Mention any architecture decisions you've made\n"
+            "• **CI/CD** — Highlight any GitHub Actions or Jenkins pipelines you've built\n\n"
+            "Add any of these you have experience with, even from side projects."
+        )
+    if any(kw in p for kw in ["rewrite", "summary", "objective"]):
+        return (
+            "Here's a rewritten professional summary:\n\n"
+            "---\n"
+            "Results-driven Software Engineer with hands-on experience building full-stack web applications "
+            "using Python, React, FastAPI, and AWS. Proven ability to design scalable REST APIs, implement "
+            "authentication systems, and optimize database performance. Passionate about clean architecture "
+            "and delivering measurable business impact.\n"
+            "---\n\n"
+            "Ask me to adjust the tone, length, or target role."
+        )
+    if any(kw in p for kw in ["project", "side project", "portfolio"]):
+        return (
+            "Here are 5 project ideas tailored to your skill set:\n\n"
+            "• **URL Shortener with Analytics** — FastAPI + React + PostgreSQL + Redis\n"
+            "• **Job Board Scraper** — Python + FastAPI + Beautiful Soup + React dashboard\n"
+            "• **Expense Tracker PWA** — React + FastAPI + SQLAlchemy + Chart.js\n"
+            "• **Resume Parser CLI** — Python + pdfplumber + click (open source it!)\n"
+            "• **Real-time Chat App** — FastAPI WebSockets + React + PostgreSQL\n\n"
+            "Each can be completed in 1-2 weeks and makes a strong portfolio piece."
+        )
+    if any(kw in p for kw in ["interview", "question", "prepare"]):
+        return (
+            "Here are 5 personalised interview questions:\n\n"
+            "1. **[Technical]** Explain FastAPI's dependency injection. Show a real example.\n"
+            "2. **[Python]** What are async/await and when would you use them in FastAPI?\n"
+            "3. **[React]** Explain useState vs useReducer. When would you choose each?\n"
+            "4. **[AWS]** How would you design a serverless file upload flow using S3 + Lambda?\n"
+            "5. **[Behavioral]** Describe a production bug you fixed. Walk me through your debugging process.\n\n"
+            "Want questions for a specific role or technology?"
+        )
+    if any(kw in p for kw in ["ats", "score", "explain"]):
+        return (
+            "Your ATS score reflects how well your resume is parsed and ranked by Applicant Tracking Systems.\n\n"
+            "**The 6 scoring dimensions:**\n"
+            "• **Contact Info (10 pts)** — Email, phone, LinkedIn visibility\n"
+            "• **Key Sections (20 pts)** — Experience, Education, Skills clearly labeled\n"
+            "• **Skills & Keywords (30 pts)** — Match with job description keywords\n"
+            "• **Quantified Achievements (15 pts)** — Numbers and metrics in bullets\n"
+            "• **Action Verbs (15 pts)** — Strong verbs starting each bullet\n"
+            "• **Formatting (10 pts)** — Length, bullet usage, clean structure\n\n"
+            "To push your score above 80: add more quantified achievements and mirror the exact keywords from job postings."
+        )
+    if any(kw in p for kw in ["career", "path", "role", "switch"]):
+        return (
+            "Based on your skill set, here are strong career directions:\n\n"
+            "• **Full Stack Engineer** — Your Python + React combo is ideal for product companies\n"
+            "• **Backend Engineer** — Deepen FastAPI + PostgreSQL + AWS for high-demand backend roles\n"
+            "• **Cloud/DevOps Engineer** — Expand with Kubernetes + Terraform + AWS certifications\n"
+            "• **Technical Lead** — With 3-4 more years, your stack positions you well for lead roles\n"
+            "• **Solutions Architect** — AWS SA-Associate → Professional is a clear path\n\n"
+            "Which direction interests you? I can outline specific next steps."
+        )
+    if any(kw in p for kw in ["hello", "hi", "hey", "help", "start"]):
+        return (
+            "Hello! 👋 I'm your AI Resume Coach. I've loaded your resume and I'm ready to help.\n\n"
+            "**Here's what I can do:**\n"
+            "• Improve your resume section by section\n"
+            "• Identify missing skills for your target role\n"
+            "• Rewrite your summary or experience bullets\n"
+            "• Suggest projects to strengthen your portfolio\n"
+            "• Generate interview questions\n"
+            "• Explain your ATS score\n"
+            "• Suggest career paths\n\n"
+            "What would you like to work on first?"
+        )
+    return (
+        "I've reviewed your resume and I'm happy to help with that. "
+        "Could you be more specific? I can help with improving your resume, "
+        "identifying missing skills, rewriting sections, suggesting projects, "
+        "generating interview questions, or exploring career paths."
+    )
 
 
 def _mock_evaluation_payload() -> dict:

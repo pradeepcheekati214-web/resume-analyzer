@@ -12,20 +12,22 @@ echo Migration done.
 
 echo.
 echo [1/3] Starting Backend on http://localhost:8000
-start "Backend" cmd /k "cd /d "%BASE%\backend" && venv\Scripts\uvicorn.exe app.main:app --reload --port 8000"
+start "Resume Analyzer - Backend" cmd /k "cd /d "%BASE%\backend" && venv\Scripts\uvicorn.exe app.main:app --reload --port 8000"
 
-echo Waiting for backend to start...
+echo Waiting for backend...
 timeout /t 4 /nobreak > nul
 
 echo.
 echo [2/3] Starting Frontend on http://localhost:5173
-start "Frontend" cmd /k "cd /d "%BASE%\frontend" && npm run dev"
+start "Resume Analyzer - Frontend" cmd /k "cd /d "%BASE%\frontend" && npm run dev"
 
 echo.
 echo ================================================
-echo   Frontend  : http://localhost:5173
-echo   Backend   : http://localhost:8000
-echo   API Docs  : http://localhost:8000/docs
+echo   App         : http://localhost:5173
+echo   AI Chatbot  : http://localhost:5173/chatbot
+echo   Job Match   : http://localhost:5173/job-match
+echo   Interview   : http://localhost:5173/interview/questions
+echo   API Docs    : http://localhost:8000/docs
 echo ================================================
 
 timeout /t 6 /nobreak > nul

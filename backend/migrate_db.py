@@ -6,6 +6,7 @@ import sqlalchemy as sa
 from app.core.database import Base, engine
 from app.models import user, resume, analysis
 from app.models import ai_suggestion, job_match, interview  # noqa
+from app.models import chat  # noqa
 
 # Create any missing tables
 Base.metadata.create_all(bind=engine)

@@ -69,6 +69,7 @@ async def init_db():
     # Import models so Base knows about them before create_all
     from app.models import user, resume, analysis  # noqa: F401
     from app.models import ai_suggestion, job_match, interview  # noqa: F401
+    from app.models import chat  # noqa: F401
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables initialised.")
     logger.info("Database tables initialised.")
